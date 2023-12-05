@@ -1,0 +1,7 @@
+all_cards/
+card_img/
+data/**
+FashionMNIST_data/**
+__pycache__/
+.DS_Store
+.vscode/
