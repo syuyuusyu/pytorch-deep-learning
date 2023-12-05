@@ -15,6 +15,9 @@ def train_step(module:nn.Module,data_loader:DataLoader,loss_fn = nn.Module,optim
         X,y = X.to(device), y.to(device)        
         y_pred = module(X)
         loss = loss_fn(y_pred,y)
+        if module.l2_regularization:
+            reg = module.l2_regularization()
+            loss += reg
         train_loss += loss
         optimizer.zero_grad()
         loss.backward()
@@ -24,6 +27,7 @@ def train_step(module:nn.Module,data_loader:DataLoader,loss_fn = nn.Module,optim
     train_loss /= len(data_loader)
     train_acc /= len(data_loader)
     print(f'train_loss:{train_loss}, trian:acc:{train_acc}')
+    print(train_loss)
     return train_loss,train_acc
 
 def test_step(module:nn.Module,data_loader:DataLoader,loss_fn = nn.Module,accuracy_fn = None, device:torch.device = 'cpu')->Tuple:
