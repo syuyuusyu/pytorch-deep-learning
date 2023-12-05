@@ -15,6 +15,9 @@ def train_step(module:nn.Module,data_loader:DataLoader,loss_fn = nn.Module,optim
         X,y = X.to(device), y.to(device)        
         y_pred = module(X)
         loss = loss_fn(y_pred,y)
+        if module.l2_regularization:
+            reg = module.l2_regularization()
+            loss += reg
         train_loss += loss
         optimizer.zero_grad()
         loss.backward()
