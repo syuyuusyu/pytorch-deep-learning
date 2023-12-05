@@ -5,3 +5,4 @@ FashionMNIST_data/**
 __pycache__/
 .DS_Store
 .vscode/
+card_name.txt
