@@ -21,6 +21,7 @@ def train_step(module:nn.Module,data_loader:DataLoader,loss_fn = nn.Module,optim
         train_loss += loss
         optimizer.zero_grad()
         loss.backward()
+        torch.nn.utils.clip_grad_norm_(module.parameters(), max_norm=1)
         optimizer.step()
         if accuracy_fn:
             train_acc += accuracy_fn(y,y_pred.argmax(dim=1))
